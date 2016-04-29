@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<PagingAndSortingInMvc.Entities.EmployeeMaster>
+@using PagedList.Mvc;
+<style>
+    table {
+        width: 100%;
+    }
+
+        table tr td {
+            border: 2px solid black;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        table tr:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        table tr th {
+            border: 2px solid black;
+            text-align: center;
+            background-color: #fff;
+            color: #000;
+        }
+</style>  
+<h2>Employee List</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <th>
+                @Html.ActionLink("Employee Name", "Index",
+new { sortOrder = "Name", currentSort = ViewBag.CurrentSort })
+        </th>
+
+        <th>
+            @Html.ActionLink("PhoneNumber", "Index", 
+new { sortOrder = "PhoneNumber", currentSort = ViewBag.CurrentSort })
+    </th>
+
+    <th>
+        @Html.ActionLink("Email", "Index", 
+                   new { sortOrder = "Email", currentSort = ViewBag.CurrentSort })
+</th>
+
+<th>
+    @Html.ActionLink("Salary", "Index", 
+                                 new { sortOrder = "Salary", currentSort = ViewBag.CurrentSort })
+</th>
+</tr>
+        @foreach (var item in Model)
+        { 
+         <tr>
+             <td>@item.Name</td>
+             <td>@item.PhoneNumber</td>
+             <td>@Html.DisplayFor(m=>item.Email)</td>
+             <td>@Html.DisplayFor(m=>item.Salary)</td>
+         </tr>
+        }
+</table>
+    <br/>
+    
+    <div id="Paging" style="text-align:center">
+        Page @(Model.PageCount<Model.PageNumber?0:Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page}),PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+    </div>
+}
