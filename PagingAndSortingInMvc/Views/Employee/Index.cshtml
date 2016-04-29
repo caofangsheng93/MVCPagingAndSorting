@@ -63,7 +63,7 @@ new { sortOrder = "PhoneNumber", currentSort = ViewBag.CurrentSort })
     <div id="Paging" style="text-align:center">
         Page @(Model.PageCount<Model.PageNumber?0:Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page}),PagedListRenderOptions.ClassicPlusFirstAndLast)
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page}),PagedListRenderOptions.TwitterBootstrapPager)
 
     </div>
 }
