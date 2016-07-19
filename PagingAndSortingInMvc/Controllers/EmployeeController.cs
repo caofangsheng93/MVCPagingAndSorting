@@ -23,7 +23,7 @@ namespace PagingAndSortingInMvc.Controllers
         public ActionResult Index(string sortOrder, string currentSort, int? page)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            int pageSize = 1;  //每页10条
+            int pageSize = 2;  //每页10条
             int pageIndex = 1; //当前页默认设置为1
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;   //判断可控对象是否有值
             sortOrder = string.IsNullOrEmpty(sortOrder) ? "Name" : sortOrder;   //如果sortOrder为空，就设置为Name，下面设置的时候，默认按照名称排序
@@ -36,10 +36,12 @@ namespace PagingAndSortingInMvc.Controllers
                     if (sortOrder.Equals(currentSort))
                     {
                         employees = db.Employees.OrderByDescending(m => m.Name).ToPagedList(pageIndex, pageSize);  //降序OrderByDescending
+                        ViewBag.CurrentSort = null;
                     }
                     else
                     {
                         employees = db.Employees.OrderBy(m => m.Name).ToPagedList(pageIndex, pageSize);
+                        
                     }
                     break;
 
@@ -48,6 +50,7 @@ namespace PagingAndSortingInMvc.Controllers
                     {
 
                         employees = db.Employees.OrderByDescending(m => m.PhoneNumber).ToPagedList(pageIndex, pageSize);
+                        ViewBag.CurrentSort = null;
                     }
                     else
                     {
@@ -60,6 +63,7 @@ namespace PagingAndSortingInMvc.Controllers
                     if (sortOrder.Equals(currentSort))
                     {
                         employees = db.Employees.OrderByDescending(m => m.Email).ToPagedList(pageIndex, pageSize);
+                        ViewBag.CurrentSort = null;
                     }
                     else
                     {
@@ -71,6 +75,7 @@ namespace PagingAndSortingInMvc.Controllers
                     if (sortOrder.Equals(currentSort))
                     {
                         employees = db.Employees.OrderByDescending(m => m.Salary).ToPagedList(pageIndex, pageSize);
+                        ViewBag.CurrentSort = null;
                     }
                     else
                     {
@@ -82,6 +87,7 @@ namespace PagingAndSortingInMvc.Controllers
                     if (sortOrder.Equals(currentSort))
                     {
                         employees = db.Employees.OrderByDescending(m => m.Name).ToPagedList(pageIndex, pageSize);  //降序OrderByDescending
+                        ViewBag.CurrentSort = null;
                     }
                     else
                     {
